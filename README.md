@@ -14,7 +14,7 @@ npm install vue-reinit
 yarn add vue-reinit
 ```
 
-# Use with vue
+## Use with vue
 ```javascript
 import Vue from 'vue'
 import App from './App.vue'
