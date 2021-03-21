@@ -1,29 +1,31 @@
-# vue-reinit
+# Vue Reinit
 
-## Project setup
-```
-yarn install
-```
+<p>
+  Reinitialize when the browser viewport width changes
+</p>
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Install
+``` bash
+# npm
+npm install vue-reinit
 
-### Run your unit tests
-```
-yarn test:unit
+# yarn
+yarn add vue-reinit
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+# Use with vue
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import { reinit } from 'vue-reinit'
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Vue.config.productionTip = false
+
+// Add vue reiinit
+Vue.use(reinit)
+
+new Vue({
+  render: (h) => h(App)
+}).$mount('#app')
+```
