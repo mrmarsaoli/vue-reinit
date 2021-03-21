@@ -1,7 +1,7 @@
 {
   "name": "vue-reinit",
   "description": "Reinitialize when the browser viewport changes",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Mrmarsaoli",
     "email": "mrmarsaoli@gmail.com"
@@ -19,7 +19,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name vue-reinit ./lib/index.ts && cp -a lib/typings typings",
+    "build:library": "yarn run package && yarn run typings",
+    "package": "vue-cli-service build --target lib --name vue-reinit ./lib/index.ts",
+    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
@@ -28,7 +30,7 @@
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
-    "vue-reinit": "^0.1.0"
+    "vue-reinit": "^0.1.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.21",
