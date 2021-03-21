@@ -15,7 +15,7 @@ export type ReinitFunction = (...args: any[]) => any
 export interface Reinit {
   oldWidth?: number
   data: ReinitFunction[]
-  runner?: number | undefined
+  runner?: ReturnType<typeof setTimeout> | undefined
 }
 
 export type ReinitArgAction = 'set' | 'add' | 'unset'
