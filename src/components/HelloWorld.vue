@@ -8,7 +8,7 @@
         >vue-cli documentation</a
       >.
     </p>
-    <h3>Installed CLI Plugins</h3>
+    <h3>Installed CLI Pluginss</h3>
     <ul>
       <li>
         <a
@@ -103,11 +103,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+  @Prop() private msg!: string
+
+  mounted() {
+    this.$reinit('add', this.setWidth)
+  }
+
+  setWidth() {
+    console.log('test', window.innerWidth)
+  }
 }
 </script>
 
