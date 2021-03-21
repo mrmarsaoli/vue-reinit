@@ -14,7 +14,7 @@ npm install vue-reinit
 yarn add vue-reinit
 ```
 
-## Use with vue
+## Usage
 ```javascript
 import Vue from 'vue'
 import App from './App.vue'
@@ -28,4 +28,28 @@ Vue.use(reinit)
 new Vue({
   render: (h) => h(App)
 }).$mount('#app')
+```
+
+then in your component you can use
+
+```javascript
+export default {
+  data() {
+    return {
+      windowWidth: 0,
+      list: []
+    }
+  },
+  mounted() {
+    this.list = this.$reinit.add(this.getWindowWidth)
+  },
+  methods: {
+    getWindowWidth() {
+      this.windowWidth = window.innerWidth
+    }
+  },
+  beforeDestroy() {
+    this.$reinit(this.list)
+  }
+}
 ```
