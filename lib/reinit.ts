@@ -1,7 +1,11 @@
-import { ReinitArgAction, ReinitFunction } from './typings'
+import { ReinitFunction, ReinitOptions } from './typings'
 
-const actions = {
-  set: () => {
+export const $reinit = {
+  set: (options: ReinitOptions) => {
+    if (window.reinit) {
+      return
+    }
+
     // made reinit
     window.reinit = {
       data: []
@@ -31,18 +35,13 @@ const actions = {
 
         for (let i = 0; i < reinit.data.length; i++) {
           // run function
-          reinit.data[i]()
+          reinit.data[i].f()
         }
-      }, 1000)
+      }, options.delay)
     }
 
     // add event listener
     window.addEventListener('resize', resizeEvent)
-  },
-
-  add: (f: ReinitFunction) => {
-    // push function to queue
-    window.reinit.data.push(f)
   },
 
   unset: () => {
@@ -55,24 +54,29 @@ const actions = {
 
     // reset data
     window.reinit.data = []
+  },
+
+  add(...f: ReinitFunction[]) {
+    const data = f.map((item) => ({
+      name: 're_' + Date.now(),
+      f: item
+    }))
+
+    // push function to queue
+    window.reinit.data = window.reinit.data.concat(data)
+
+    return data.map((item) => item.name)
+  },
+
+  remove: (names: string[]) => {
+    names.forEach((name) => {
+      const index = window.reinit.data.findIndex((item) => item.name === name)
+
+      if (index === -1) {
+        return
+      }
+
+      window.reinit.data.splice(index, 1)
+    })
   }
-}
-
-export const $reinit = (action: ReinitArgAction, f?: ReinitFunction): void => {
-  console.log(action, f)
-  // if reinit not being set
-  if (action === 'add' && !window.reinit) {
-    actions.set()
-  }
-
-  if (action === 'add') {
-    if (f) {
-      actions.add(f)
-    }
-
-    return
-  }
-
-  // call action
-  actions[action as ReinitArgAction]
 }

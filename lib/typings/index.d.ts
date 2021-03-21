@@ -6,17 +6,29 @@ declare global {
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $reinit(action: ReinitArgAction, f?: ReinitFunction): void
+    $reinit: {
+      set(options: ReinitOptions): void
+      unset(): void
+      add(...f: ReinitFunction[]): string[]
+      remove(names: string[]): void
+    }
   }
 }
 
 export type ReinitFunction = (...args: any[]) => any
 
+export interface ReinitData {
+  name: string
+  f: ReinitFunction
+}
+
 export interface Reinit {
   oldWidth?: number
-  data: ReinitFunction[]
+  data: ReinitData[]
   runner?: ReturnType<typeof setTimeout> | undefined
 }
 
-export type ReinitArgAction = 'set' | 'add' | 'unset'
-export type ReinitArg = ReinitFunction | ReinitArgAction
+export interface ReinitOptions {
+  delay?: number
+  widthOnly?: boolean
+}
